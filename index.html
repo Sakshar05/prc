@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        2.Design an application by using array. 
+
+2AExample of  Matrix multiplication
+
+public class Matrix{  
+public static void main(String args[]){  
+
+int a[][]={{1,2,3},{4,5,6},{7,8,9}};    
+int b[][]={{1,1,1},{2,2,2},{3,3,3}};    
+    
+int c[][]=new int[3][3];  //3 rows and 3 columns  
+    
+for(int i=0;i<3;i++){    
+for(int j=0;j<3;j++){    
+c[i][j]=0;      
+for(int k=0;k<3;k++)      
+{      
+c[i][j]+=a[i][k]*b[k][j];      
+}//end of k loop  
+System.out.print(c[i][j]+" ");  //printing matrix element  
+}//end of j loop  
+System.out.println();//new line    
+}    
+}}
+
+Output:-
+
+ 
+
+
+
+
+
+
+
+
+
+3. Implementation of package, Interface and abstract class
+3A. Write a package for Games, which have two classes Indoor and Outdoor. Use a function display () to generate the list of players for the specific games. Use default and parameterized constructors.Make use of protected access specifier.
+
+Indoor.java
+package games;
+public class Indoor
+{
+protected String player;
+public Indoor(){}
+public Indoor(String p)
+{
+player = p;
+}
+public void display()
+{
+System.out.println(player);
+}
+protected void finalize()
+{
+System.out.println("Terminating Indoor...");
+}
+}
+
+Outdoor.java
+
+package games;
+public class Outdoor
+{
+protected String player;
+public Outdoor(){}
+public Outdoor(String p)
+{
+player = p;
+}
+public void display(){
+System.out.println(player);
+}
+protected void finalize()
+{
+System.out.println("Termination Outdoor....");
+}
+}
+
+TestGamesPackage.java
+
+import games.*;
+public class TestGamesPackage
+{
+public static void main(String args[])
+{
+Indoor In[] = new Indoor[3];
+In[0] = new Indoor("ABCDEFG");
+In[1] = new Indoor("XYZ");
+In[2] = new Indoor("LMNOP");
+System.out.println("Indoor players...");
+
+for(int i=0;i<In.length;i++)
+In[i].display();
+System.out.println("Outdoor Players...");
+Outdoor Out[] = new Outdoor[3];
+Out[0] = new Outdoor("Babu");
+Out[1] = new Outdoor("Polarg");
+Out[2] = new Outdoor("Rabada");
+for(int i=0;i<Out.length;i++)
+Out[i].display();
+}
+}
+Output:-
+ 
+
+
+
+
+3B. Create an interface”CreditCardInterface” with methods: viewcreditamount(),PayCard(). Create a class “silverCardCustomer”(name, cardnumber)(16 digit), creditamount-initialized to 0, credit limit set to 50,000) which implement above interface. Inherit class GoldCardCustomer from SilverCardCustomer having same method but creditLimit of 1,00,000. Create an object of each class and perform operations. Display appropriate message for success or failure of transaction. ( use method overriding)
+1.useCard() method increase the credit amount by a specific amount upto creditLimit.
+2.payCredit() reduces the credit Amount by a specific amount.
+3. increaseLimit() increase the credit limit for GoldCardCustomer (only 3 times, not more than 5000 rupees each time.)
+
+
+Source Code:-
+
+import java.io.*;
+interface CreditCard
+{
+                void viewCreditAmount();
+                void increaseLimit()throws IOException;
+                void useCard()throws IOException ;
+                void payCard()throws IOException;
+}
+
+class SliverCardCustomer implements CreditCard
+{
+                String name;
+                int card_no ;
+                double creditAmount;
+                double creaditLimit;
+                static int cnt;
+                BufferedReader br=new BufferedReader(new BufferedReader(new InputStreamReader(System.in)));
+
+                SliverCardCustomer()
+                {
+                                name="Noname" ;
+                                card_no=0;
+                                creditAmount=0;
+                                creaditLimit=50000;
+                }
+
+                public void viewCreditAmount()
+                {
+                                System.out.println("Your amount is : "+creditAmount) ;
+                }
+
+                public void getdata()throws IOException
+                {
+                                System.out.println("Enter the name : ");
+                                String name=(br.readLine());
+                                System.out.println("Enter the card number :");
+                                card_no=Integer.parseInt(br.readLine());
+                                System.out.println("Enter Credit amount : ");
+                                creditAmount=Double.parseDouble(br.readLine());
+                }
+
+                public void payCard()throws IOException
+                {
+                                System.out.println("Enter amount to be pay");
+                                double pay=Double.parseDouble(br.readLine()) ;
+                                creditAmount=creditAmount+pay;
+                                System.out.println("Balance is paid");
+                }
+                public void useCard()throws IOException
+                {
+
+                                System.out.println("Enter amount : ");
+                                double amount=Double.parseDouble(br.readLine());
+                                if(amount<creditAmount)
+                                {
+                                                creditAmount=creditAmount-amount;
+                                                viewCreditAmount();
+                                                System.out.println("Thanks for using the service") ;
+                                }
+                                else System.out.println("\nerror!");
+                }
+
+                public void increaseLimit()throws IOException
+                {
+                                cnt++;
+                                if(cnt<=3)
+                                {
+                                                System.out.println("Enter amount limit to increse : ");
+                                                double amt=Double.parseDouble(br.readLine());
+                                                if(amt<=2500)
+                                                {
+                                                                creaditLimit=creaditLimit+amt;
+                                                                System.out.println("Amount limit to increse Successfully : ");
+                                                }
+                                                System.out.println("You can't increse creadit amount more than 2500 at a time ");
+
+                                }
+                                else
+                                                System.out.println("You can't increse limit more than 3 times ");
+                }
+}//end of class
+
+class GoldCardCustomer extends SliverCardCustomer
+{
+                static int cnt;
+                public void increaseLimit()throws IOException
+                {
+                                cnt++;
+                                if(cnt<=3)
+                                {
+                                                System.out.println("Enter amount limit to increse : ");
+                                                double amt=Double.parseDouble(br.readLine());
+                                                if(amt<=5000)
+                                                {
+                                                                creaditLimit=creaditLimit+amt;
+                                                                System.out.println("Amount limit to increse Successfully : ");
+                                                }
+                                                System.out.println("You can't increse creadit amount more than 2500 at a time ");
+
+                                }
+                                else
+                                                System.out.println("You can't increse limit more than 3 times ");
+                }
+
+}
+class Praticle1
+{
+                public static void main(String args[])throws IOException
+                {
+                                int ch ;
+                                BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+                                System.out.println("Enter the info for silver card holder : ");
+                                SliverCardCustomer sc=new SliverCardCustomer();
+                                sc.getdata();
+
+                                System.out.println("Enter the info for Gold card holder : ");
+                                GoldCardCustomer gc=new GoldCardCustomer();
+                                gc.getdata();
+                                do
+                                {
+                                                System.out.println("1.Use silver card \n2.Pay credit for Silver card\n3.Increse limit for silver card ") ;
+                                                System.out.println("4.Use Gold card \n5.Pay credit for Gold card\n6.Increse limit for Gold card  ") ;
+
+                                                System.out.println("0. exit") ;
+                                                System.out.println("Enter your choice : ") ;
+                                                ch=Integer.parseInt(br.readLine());
+
+                                                switch(ch)
+                                                {
+                                                                case 1: sc.useCard();
+                                                                                break;
+                                                                case 2:sc.payCard();
+                                                                       break ;
+                                                                case 3:sc.increaseLimit();
+                                                                       break;
+                                                                case 4:gc.useCard();
+                                                                       break;
+                                                                case 5:gc.payCard();
+                                                                       break ;
+                                                                case 6:gc.increaseLimit();
+                                                                       break;
+
+                                                                case 0 :break;
+                                                }
+                                }while(ch!=0);
+                }
+}
+
+
+Output:-
+ 
+
+
+
+
+
+3B)Create abstract class shape. Drive three classes sphere. Cone and cylinder from it. Calculate Area and volume of all ( use method overriding)
+
+Source Code:-
+
+import java.io.*;
+
+abstract class Shape{
+ abstract public void calc_area();
+ abstract public void calc_volume();
+ final float pi=3.14f;
+}
+
+class Sphere extends Shape{
+ double r;
+ private double area;
+ private double volume;
+ public void accept() throws IOException{
+  System.out.println("Enter the radius of the Sphere: ");
+  BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+  r=Double.parseDouble(br.readLine());
+ }
+ public void calc_area(){
+  area=pi*r*r;
+ }
+ public void calc_volume(){
+  
+  volume=1.33333333334*pi*r*r*r;
+ }
+ public void display(){
+  calc_area();
+  calc_volume();
+  System.out.println("The area of sphere is: "+area);
+  System.out.println("The volume of sphere is: "+volume);
+ }
+}
+
+class Cone extends Shape{
+ double h,r,area,volume;
+
+ public void accept() throws IOException{
+  System.out.println("Enter radius and height of the Cone: ");
+  BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+  r=Double.parseDouble(br.readLine());
+  h=Double.parseDouble(br.readLine());
+ }
+ public void calc_area(){
+  
+  double sq=h*h+r*r;
+  area=pi*r*(r+java.lang.Math.sqrt(sq));
+ }
+ public void calc_volume(){
+  double d=h/3;
+  volume=pi*r*r*d;
+ }
+ public void display(){
+  calc_area();
+  calc_volume();
+  System.out.println("The area of Cone is: "+area);
+  System.out.println("The volume of Cone is: "+volume);
+ }
+}
+
+class Cylinder extends Shape{
+ double r,h,area,volume;
+ public void accept() throws IOException{
+  System.out.println("Enter radius and height of the Cylinder: ");
+  BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+  r=Double.parseDouble(br.readLine());
+  h=Double.parseDouble(br.readLine());
+ }
+ public void calc_area(){
+  area=(2*pi*r*h)+(2*pi*r*r);
+ }
+ public void calc_volume(){
+  volume=pi*r*r*h;
+ }
+ public void display(){
+  calc_area();
+  calc_volume();
+  System.out.println("The area of Cylinder is: "+area);
+  System.out.println("The volume of Cylinder is: "+volume);
+ }
+}
+
+
+
+public class Praticle {
+ public static void main(String [] args)throws IOException{
+  Sphere s=new Sphere();
+  s.accept();
+  s.display();
+  Cone co=new Cone();
+  co.accept();
+  co.display();
+  Cylinder cy=new Cylinder();
+  cy.accept();
+  cy.display();
+ }
+}
+
+
+
+
+Output:-
+ 
+
+
+
+
+
+
+
+
+
+4) Design application using String, StringBuilder, StringTokenizer
+
+String:-
+
+public class Strings{    
+public static void main(String args[]){    
+String s1="java";
+char ch[]={'s','t','r','i','n','g','s'};    
+String s2=new String(ch); 
+String s3=new String("example");
+String s4="my name is ABCDEFG";  
+String replaceString=s4.replace("is","was");//replaces all occurrences of "is" to "was"  
+String s5="Ashok bhai"; 
+String s6=s5.concat(" is immutable so assign it explicitly");    
+System.out.println(s6);       
+System.out.println(replaceString);  
+System.out.println(s1);    
+System.out.println(s2);    
+System.out.println(s3);    
+}}   
+
+
+StringBuilder:-
+
+class StringBuilderExample{  
+public static void main(String args[]){  
+StringBuilder sb=new StringBuilder("Hello ");  
+sb.append("Java");
+System.out.println(sb);
+sb.insert(1,"Java"); 
+System.out.println(sb);  
+sb.replace(1,3,"Java");  
+System.out.println(sb);
+sb.delete(1,3);  
+System.out.println(sb);
+sb.reverse();  
+System.out.println(sb);
+}  
+}  
+ 
+
+StringTokenizer :- 
+
+import java.util.StringTokenizer;  
+public class StringToken{  
+ public static void main(String args[]){  
+   StringTokenizer st = new StringTokenizer("Hello Friends Chai pee lo"," ");  
+     while (st.hasMoreTokens()) {  
+         System.out.println(st.nextToken());  
+     }  
+   }  
+}
+   
+5)Test any five standard exception and user define custom exception in java
+
+ExceptionHandling:-
+
+public class ExceptionHandle{  
+  public static void main(String args[]){  
+   try{  
+     
+      int data=100/0;  
+   }catch(ArithmeticException e){System.out.println(e);}     
+   System.out.println("Zero division error");    
+try{  
+     
+      String s=null;  
+   System.out.println(s.length());  
+   }catch(Exception e){System.out.println(e);}     
+   System.out.println("Null Pointer Exception");   
+
+try{  
+     
+     String s="abc";  
+    int i=Integer.parseInt(s);
+   }catch(Exception e){System.out.println(e);}     
+   System.out.println("Number FormatException ");   
+
+try{  
+     
+    int a[]=new int[5];  
+    a[10]=50;
+   }catch(Exception e){System.out.println(e);}     
+   System.out.println("ArrayIndexOutOfBoundsException   ");   
+}
+}
+
+Output:-
+ 
+6) Threads creation and design applications by using Extending the Thread class/ implementing the Runnable Interface. Application of multithreading in java.
+
+Source Code:-
+
+import java.awt.*;
+import java.awt.event.*;
+class threadex6 extends Frame implements Runnable
+{
+	Thread t;
+	Label l1;
+	int f;
+	threadex6()
+	{
+		t=new Thread(this);
+		t.start();
+		setLayout(null);
+		l1=new Label("Hello java");
+		l1.setBounds(100,100,100,40);
+		add(l1);
+		setSize(300,300);
+		setVisible(true);
+		f=0;
+	}
+	public void run()
+	{
+		try
+		{
+			if(f==0)
+			{
+				t.sleep(200);
+				l1.setText("");
+				f=1;
+			}
+			if(f==1)
+			{
+				t.sleep(200);
+				l1.setText("Hello java");
+				f=0;
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		run();
+	}
+	public static void main(String a[])
+	{
+	new threadex6();
+	}
+}
+
+
+Output:-
+
+
+
+ 
+
+
+7)Design Java Application using collection in java such as arraylist and linklist.
+A) ArrayList.java
+
+import java.util.ArrayList;
+
+public class ArrayLists {
+  public static void main(String[] args) {
+    ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("Mazda");
+    System.out.println(cars);
+  }
+}
+Output:-
+ 
+
+B)LinkedList:-
+
+import java.util.*;  
+public class LinkedList1{  
+ public static void main(String args[]){  
+  
+  LinkedList<String> al=new LinkedList<String>();  
+  al.add("Ravi");  
+  al.add("Vijay");  
+  al.add("Ravi");  
+  al.add("Ajay");  
+  
+  Iterator<String> itr=al.iterator();  
+  while(itr.hasNext()){  
+   System.out.println(itr.next());  
+  }  
+ }  
+}  
+
+Output:-
+ 
+
+
+
+
+
+
+
+
+
+8)Design GUI based java application using AWT, swing and event handling.
+import java.awt.*;
+import java.awt.event.*;
+
+public class AdditionGUI extends Frame implements ActionListener{
+
+    Button b1 = new Button("+");
+    Button b2 = new Button("-");
+    Button b3 = new Button("*");
+    Button b4 = new Button("/");
+    Button b5 = new Button("clear");
+
+    Label l1 = new Label("First Number :-");
+    Label l2 = new Label("Second Number :-");
+    Label l3 = new Label("");
+
+
+    TextField  t1 = new TextField(); 
+    TextField  t2 = new TextField(); 
+
+    AdditionGUI(){
+
+    b1.setBounds(10,150, 30, 30);
+    b2.setBounds(70,150, 30, 30);
+    b3.setBounds(130,150, 30, 30);
+    b4.setBounds(190,150, 30, 30);
+    b5.setBounds(238, 150, 50, 30);
+    l1.setBounds(20, 30, 95, 30);
+    t1.setBounds(140, 30, 140, 30);
+    l2.setBounds(20, 90, 100, 30);
+   t2.setBounds(140, 90, 140, 30);
+   l3.setBounds(130, 200, 100, 30);
+
+
+     add(b1); 
+     add(b2);
+     add(b3);
+     add(b4);
+     add(b5);
+     add(l1);
+     add(l2);
+     add(t1);
+     add(l3);
+     add(t2);
+     
+     b5.addActionListener(this);
+     b1.addActionListener(this);
+     b2.addActionListener(this);
+     b3.addActionListener(this);
+     b4.addActionListener(this);
+     
+
+    setSize(300,300);
+    setTitle("Math GUI");
+    setLayout(null);
+    setVisible(true);
+
+}
+public void actionPerformed(ActionEvent e){
+         if(e.getSource() == b5)
+         {
+         t1.setText(" ");
+         t2.setText(" ");
+          l3.setText(" ");
+          }
+
+         if(e.getSource() == b1){
+          int a = Integer.parseInt(t1.getText());
+          int b = Integer.parseInt(t2.getText());
+          int c = a + b;
+          l3.setText(Integer.toString(c));
+         }
+        
+        if(e.getSource() == b2){
+          int a = Integer.parseInt(t1.getText());
+          int b = Integer.parseInt(t2.getText());
+          int c = a - b;
+          l3.setText(Integer.toString(c));
+         }
+
+
+       if(e.getSource() == b3){
+          int a = Integer.parseInt(t1.getText());
+          int b = Integer.parseInt(t2.getText());
+          int c = a * b;
+          l3.setText(Integer.toString(c));
+         }
+
+       if(e.getSource() == b4){
+          int a = Integer.parseInt(t1.getText());
+          int b = Integer.parseInt(t2.getText());
+          int c = a / b;
+          l3.setText(Integer.toString(c));
+         }
+
+}
+public static void main(String args[]){
+   AdditionGUI s = new AdditionGUI();
+}
+}
+
+Output:-
+
+ 
+Addition:-
+ 
+
+
+Substraction:-
+ 
+
+Multiplication:-
+ 
+Division:-
+ 
+
+
+Demo of JDBC Connection
+
+Source Code:-
+import java.sql.*;
+class Connections{
+public static void main(String[] args){
+    try{
+     Class.forName("com.mysql.jdbc.Driver");
+     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/abhinav","root","");
+     Statement stmt = con.createStatement();
+     ResultSet rs = stmt.executeQuery("select * from emp");
+     while(rs.next())
+      System.out.println(rs.getInt(1)+" "+ rs.getString(2)+ " "+ rs.getString(3));
+      con.close();
+     System.out.println("connected successfully");
+
+}catch (Exception e){
+  System.out.println(e);}
+}
+}
+
+
+Output:-
+ 
+
+9) Design and implement JDBC application.
+
+import java.sql.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+
+
+class ABC extends JFrame implements ActionListener
+{          
+            JLabel l1,l2,l3;
+            JTextField t1,t2,t3;
+            JButton b1,b2,b3;
+            String sql;
+            JPanel p,p1;
+            Connection con;
+            PreparedStatement ps;
+
+
+            JTable t;
+            JScrollPane js;
+            Statement stmt ;
+            ResultSet rs ;
+            ResultSetMetaData rsmd ;
+            int columns;
+            Vector columnNames = new Vector();
+            Vector data = new Vector();
+
+            ABC()
+            {
+
+                        l1 = new JLabel("Enter no :");
+                        l2 = new JLabel("Enter name :");
+                        l3 = new JLabel("Enter Address :");       
+
+                        t1 = new JTextField(20);
+                        t2 = new JTextField(20);
+                        t3 = new JTextField(20);
+
+                        b1 = new JButton("Save");
+                        b2 = new JButton("Display");
+                        b3 = new JButton("Clear");
+
+                        b1.addActionListener(this);
+                        b2.addActionListener(this);
+                        b3.addActionListener(this);
+
+                        p=new JPanel();
+                        p1=new JPanel();
+                        p.add(l1);
+                        p.add(t1);
+                        p.add(l2);
+                        p.add(t2);
+                        p.add(l3);
+                        p.add(t3);
+
+                        p.add(b1);
+                        p.add(b2);
+                        p.add(b3);
+
+                        add(p);
+                        setLayout(new GridLayout(2,1));
+                        setSize(600,800);
+                        setVisible(true);
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+            }
+
+            public void actionPerformed(ActionEvent e)
+            {
+                        if((JButton)b1==e.getSource())
+                        {
+                                    int id = Integer.parseInt(t1.getText());
+                                    String name = t2.getText();
+                                    String address = t3.getText();
+                                    System.out.println("Accept Values");
+                                    try
+                                    {
+                                                Class.forName("com.mysql.jdbc.Driver");
+                                                con=DriverManager.getConnection("jdbc:mysql://localhost:3306/abhinav","root","");                                               
+                                                sql = "insert into student values(?,?,?)";
+                                                ps = con.prepareStatement(sql);
+                                                ps.setInt(1,id);
+                                                ps.setString(2, name);
+                                                ps.setString(3, address);
+                                                System.out.println("values set");
+                                                int n=ps.executeUpdate();
+                                                if(n!=0)
+                                                {
+                                                            JOptionPane.showMessageDialog(null,"Record insered ...");                                  
+                                                }
+
+                                                else
+                                                            JOptionPane.showMessageDialog(null,"Record NOT inserted ");
+
+                                    }//end of try
+                                    catch(Exception ex)
+                                    {
+                                                System.out.println(ex);          
+                                                //ex.printStackTrace();
+                                    }
+
+                        }//end of if
+                        else if((JButton)b2==e.getSource())
+                        {
+                                    try
+                                    {
+                                                Class.forName("com.mysql.jdbc.Driver");
+                                                con=DriverManager.getConnection("jdbc:mysql://localhost:3306/abhinav","root","");
+                                                System.out.println("Connected");
+                                                stmt=con.createStatement();
+                                                rs = stmt.executeQuery("select * from student");
+                                                rsmd = rs.getMetaData();
+                                                columns = rsmd.getColumnCount();
+
+                                                //Get Columns name
+                                                for(int i = 1; i <= columns; i++)
+                                                {
+                                                            columnNames.addElement(rsmd.getColumnName(i));
+                                                }
+
+                                                //Get row data
+                                                while(rs.next())
+                                                {
+                                                            Vector row = new Vector(columns);
+                                                            for(int i = 1; i <= columns; i++)
+                                                            {
+                                                                        row.addElement(rs.getObject(i));
+                                                            }
+                                                            data.addElement(row);
+                                                }
+
+                                                t = new JTable(data, columnNames);
+                                                js = new JScrollPane(t);
+
+                                                p1.add(js);
+                                                add(p1);
+
+                                                setSize(600, 600);
+                                                setVisible(true);
+                                    }
+                                    catch(Exception e1)
+                                    {
+                                                System.out.println(e1);
+                                    }
+                        }
+                        else
+                        {
+                                    t1.setText("");
+                                    t2.setText("");
+                                    t3.setText("");
+
+                        }
+            }
+
+            public static void main(String a[])
+            {
+                        ABC ob = new ABC();
+            }
+}
+
+
+Output:-
+
+ 
+
+ 
+
+10) Design and implement servlet application.
+ File structure for servlet application.
+ 
+web.xml
+<web-app>  
+<servlet>  
+<servlet-name> ABCDEFG </servlet-name>  
+<servlet-class> DemoServlet </servlet-class>  
+</servlet>  
+  
+<servlet-mapping>  
+<servlet-name> ABCDEFG </servlet-name>  
+<url-pattern> /Demo </url-pattern>  
+</servlet-mapping>  
+</web-app>  
+
+
+DemoServlet.java
+
+import javax.servlet.http.*;  
+import javax.servlet.*;  
+import java.io.*;  
+public class DemoServlet extends HttpServlet{  
+public void doGet(HttpServletRequest req,HttpServletResponse res)  
+throws ServletException,IOException  
+{  
+res.setContentType("text/html");  
+PrintWriter pw=res.getWriter(); 
+  
+//writing html in the stream  
+pw.println("<html><body>");  
+pw.println("Welcome to servlet ABCDEFG");  
+pw.println("</body></html>");  
+pw.close();
+}}  
+Output:-
+
+ 
+
+
+11) Design and implement JSP application.
+Source Code:-
+C:\xampp\tomcat\webapps\jspexample
+Demo.java
+<!DOCTYPE html>
+<html>
+    <body>
+        <form action="Demo.jsp" method="post">
+            Enter Your Name : <input type="text" name="name"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
+
+Demo.jsp
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.Calendar" errorPage="" %>
+<!DOCTYPE html>
+
+<%
+    String name = request.getParameter("name");
+   
+   Calendar rightnow = Calendar.getInstance();
+   int time = rightnow.get(Calendar.HOUR_OF_DAY);
+  
+    if(time > 0 && time <= 12)
+    {
+        out.println("Good Morning "+" "+ name);
+    }
+      else if(time < 12 && time >=16)
+      {
+          out.println("Good Afternoon"+" "+name);
+      }
+      else
+      {
+          out.println("Good Night"+ " "+name);
+      }
+%>
+Output:-
+1). Demonstrate singly and doubly linked list.
+
+class Node {
+    constructor(data,next=null)
+    {
+    this.data=data;
+    this.next=next;
+    }
+
+}
+
+class Linkedlist{
+    constructor(){
+        this.head=null;
+        this.size=0;
+    }
+
+    insertFirst(data){
+     this.head=new Node(data,this.head)
+     this.size++;
+    }
+    insertLast(data){
+        let node=new Node(data)
+        if(!this.head)
+{
+        this.head=node;
+        }
+        else
+        {
+        let temp=this.head;
+        while(temp.next)
+        {
+        temp=temp.next;
+        }
+        temp.next=node;
+        }
+        this.size++;
+    }
+    insertAtIndex(data,index){
+     if(index>0 & index>this.size)
+     {
+     return;
+     }
+     if(index===0)
+     {
+     this.head=new Node(data,this.head)
+     return;
+     }
+    let node=new Node(data)
+    let temp1,temp2;
+
+        temp1=this.head;
+    let count=0;
+    while(count<index)
+     {
+    temp2=temp1;
+    count++;
+    temp1=temp1.next;
+    
+     }
+     node.next=temp1;
+    temp2.next=node;
+    this.size++;
+     }
+     getIndex(index)
+     {
+     var b=false;
+     let temp=this.head;
+    let count=0;
+    while(temp)
+     {
+     if(count==index)
+     {
+      console.log("data is= "+temp.data +""+ " index="+index);
+      b=true;
+     }
+     count++;
+    temp=temp.next;
+     }
+     if(b==false)
+     {
+     console.log("null");
+     }
+     }
+     removeat(index)
+     {
+     let temp1=this.head; let
+    temp2; let count=0;
+    if(index>0 & index>this.size)
+     {
+     return;
+     }
+    
+     if(index===0)
+     {
+     this.head=temp1.next;
+    
+     }
+     else
+     {
+     while(count<index)
+     {
+     count++;
+    temp2=temp1;
+    temp1=temp1.next;
+    
+     }
+    
+     temp2.next=temp1.next;
+     }
+     console.log("deleted data= "+temp1.data);
+     this.size--;
+     }
+     clearlist()
+     {
+     this.head=null;
+    this.size=0;
+     }
+     printdatalist()
+     {
+     let temp=this.head;
+    while(temp)
+     {
+     console.log(temp.data);
+    temp=temp.next
+     }
+     }
+    }
+    console.log("Singly Linked List")
+    const ll=new Linkedlist(); 
+    ll.insertFirst(100)
+    ll.insertAtIndex(200,1)
+    ll.insertAtIndex(300,2)
+    ll.insertAtIndex(400,3)
+    ll.insertLast(500) 
+    ll.printdatalist()
+    ll.removeat(0) 
+    ll.printdatalist()
+    ll.getIndex(3) 
+    console.log(ll.size);
+    console.log("Doubly Linked List");
+    function doubleLinkedList() 
+    {
+        let Node =function(element) { 
+             this.element =element; 
+             this.next = null;
+             this.prev = null;
+     }
+    
+     let length = 0;
+    let head = null;
+    let tail = null;
+    this.append = function(element) { 
+    let node =new Node(element), 
+    current = head,
+    previous;
+    
+    if(!head){
+    head = node;
+    tail = node; }else{
+    node.prev = tail;
+    8
+    tail.next = node;
+    tail = node;
+     }
+    
+     length++;
+     }
+    
+     this.insert = function(position, element) {
+    
+     if(position >= 0 && position <= length){
+    let node = new Node(element),
+    current = head, previous,
+    index = 0;
+    
+     if(position === 0){
+    if(!head){ head
+    = node; tail =
+    node;
+     }else{ node.next
+    = current;
+    current.prev = node;
+    head = node;
+     }
+     }else if(position === length){
+    current = tail; current.next
+    = node; node.prev =
+    current; tail = node;
+     }else{ while(index++ <
+    position){ previous =
+    current; current =
+    current.next;
+     }
+    
+     node.next = current;
+    previous.next = node;
+    
+     current.prev = node;
+    node.prev = previous;
+     }
+    
+     length++;
+    return true;
+    9
+    }else{
+    return false;
+     }
+     }
+    
+     this.removeAt = function(position){
+    if(position > -1 && position < length){
+    let current = head, previous, index = 0;
+    if(position === 0){ 
+        head = current.next;
+    if(length === 1){
+    tail = null; 
+   }else{ 
+       head.prev = null;
+     }
+     }else if(position === length - 1){
+    current = tail; tail =
+    current.prev; tail.next = null;
+     }else{ while(index++ <
+    position){ previous =
+    current; current =
+    current.next;
+     }
+     previous.next = current.next;
+    current.next.prev = previous;
+     }
+    
+     length--; 
+     return current.element;
+     }else{
+    return null;
+     }
+     }
+     this.indexOf = function(elm){
+    let current = head, index = -1;
+    while(current){ 
+        if(elm === current.element){ 
+            return ++index;
+     }
+     index++; current =
+    current.next;
+     }
+     return -1;
+    10
+     };
+    
+     this.isPresent = (elm) => {
+    return this.indexOf(elm) !== -1;
+     };
+    
+     this.delete = (elm) => {
+     return this.removeAt(this.indexOf(elm));
+     };
+     this.deleteHead = function(){
+    this.removeAt(0);
+     }
+     this.deleteTail = function(){
+    this.removeAt(length-1);
+     }
+     this.toString = function(){
+    let current = head, string
+    = '';
+     while(current){ string += current.element +
+    (current.next ? '\n' : ''); current = current.next;
+     }
+     return string;
+     };
+     this.disp = function(){ let
+    arr = [], current = head;
+    while(current){
+    arr.push(current.element);
+    current = current.next;
+     }return arr;
+     };
+     this.isEmpty = function(){
+    return length === 0;
+     };
+     this.size = function(){
+    return length;
+     }
+     this.getHead = function() {
+    return head;
+     }
+     this.getTail = function() {
+    return tail;
+    11
+     }}
+    let dll = new doubleLinkedList();
+    dll.append('Rakhi Sawant');
+    dll.append('Deepak kalal');
+    dll.append('Ranu Madal');
+    dll.append('Rahul Gandhi');
+    console.log(dll.disp());
+    dll.insert(1,'Putin'); 
+    console.log(dll.disp());
+    dll.deleteHead();
+    console.log(dll.disp());
+    dll.deleteTail();
+    console.log(dll.disp());
+Output:-
+ 
+
+
+2) STACK implementation using Array with PUSH, POP operations.
+
+class Stack {
+    constructor() {
+        this.items = [];
+    }
+    push(element) {
+       this.items.push(element);
+    }
+    pop() { 
+        return this.items.pop();
+    }
+    peek() { 
+        return this.items[this.items.length - 1];
+    }
+    isEmpty() { 
+        return this.items.length === 0; 
+    }
+    size() { 
+        return this.items.length;
+    }
+    clear() {
+       this.items = [];
+    }
+    toArray() {
+    return this.items;
+    }
+    disp(){ 
+        for(let i=this.items.length - 1 ;i>=0;i--){
+          console.log(this.items[i]);
+     }
+     }
+     toString() { 
+         return this.items.toString();
+     }
+}
+
+const stack = new Stack(); 
+console.log('stack.isEmpty()=> ', stack.isEmpty()); 
+stack.push(66); 
+stack.push(77); 
+stack.push(88); 
+stack.disp();
+console.log('stack.peek() => ', stack.peek());
+stack.push(90);
+stack.disp();
+console.log('stack.size() after push 90 => ',
+stack.size()); 
+console.log('stack.isEmpty() => ', stack.isEmpty());
+stack.push(100); 
+console.log('stack.size() after push 90 => ',stack.size()); 
+stack.disp(); 
+stack.pop();
+console.log("stack after pop"); 
+stack.disp(); 
+stack.pop();
+console.log("stack after pop "); 
+stack.disp();
+console.log('stack.size() after push 100 and pop twice => ', stack.size());
+
+Output:-
+ 
+
+
+3). Reverse a string using stack .
+
+class Stack
+{
+constructor(){
+    this.data = [];
+    this.length = 0;
+}
+push(item){
+this.length++; 
+return this.data.push(item);
+}
+pop (){ 
+    if (this.length<= 0) { 
+    return null; 
+    } 
+    else {
+    this.length--; 
+    return this.data.pop();
+    }
+ }
+ 
+ peek() { 
+     if (this.length <=0) { 
+         return null; 
+    }
+else { 
+    return data[length - 1];
+ }
+ }
+
+ disp()
+ {
+ for(let i=this.data.length-1;i>=0;i--)
+ {
+ console.log(this.data[i]);
+ }
+ }
+
+isEmpty(){
+return !this.length;
+ }
+ }
+function reverseString(str) {
+let result = ""; 
+let stack = new Stack(); 
+let strArr = str.split("");
+strArr.forEach((element) => {
+stack.push(element);
+});
+stack.disp(); 
+while(!stack.isEmpty()) {
+result += stack.pop();
+}
+return result;
+}
+let str = "RAKHI SAWANT"; 
+console.log(reverseString(str));
+
+Output:-
+ 
+
+
+4).Check for balanced parentheses by using Stacks.
+
+const isMatchingBrackets = function(str) { 
+let stack = [];
+ let map = {
+ '(': ')',
+ '[': ']',
+ '{': '}'
+}
+ for (let i = 0; i < str.length; i++) {
+
+ if (str[i] === '(' || str[i] === '{' || str[i] === '[') {
+stack.push(str[i]);
+ }
+else {
+ let last = stack.pop();
+
+ if (str[i] !== map[last]) {
+ return false
+ };
+ }
+ }
+
+ if (stack.length !== 0) {
+return false 
+}; 
+return true; 
+}
+console.log(isMatchingBrackets("(){}"));
+console.log(isMatchingBrackets("({(()))}}"));
+
+Output:-
+ 
+
+
+
+
+5).Implement Stack using Linked List
+function stackUsingLL(){
+
+    let Node = function(elm){
+        this.element = elm;
+        this.next = null;
+    }
+    
+     let length = 0;
+    
+     let head = null;
+    
+     this.push = function(elm){
+     let node = new Node(elm), current;
+    
+    current = head;
+    node.next = current; 
+    head= node;
+    
+     length++;
+     }
+    
+     this.pop = function(){ let
+    current = head;
+    if(current){ 
+    let elm =current.element; 
+    current = current.next; 
+    head = current; length--;
+    return elm;
+     }
+    
+     return null;
+     }
+    
+     this.peek = function(){
+    if(head){ 
+        return head.element;
+     }
+     return null;
+    }
+    
+    this.toArray = function(){
+    let arr = []; 
+    let current = head; 
+    while(current){
+    arr.push(current.element);
+    current = current.next;
+     }
+    
+     return arr;
+    }
+    
+     this.isEmpty = function(){
+     return length === 0;
+     }
+    
+     this.size = function(){
+    return length;
+     }
+    
+     this.clear = function(){
+    head = null; length =
+    0;
+     }
+    } 
+let stack = new stackUsingLL();
+stack.push(92); 
+stack.push(91);
+stack.push(90); 
+stack.push(89);
+console.log(stack.peek());
+console.log(stack.isEmpty());
+console.log(stack.size());
+console.log(stack.pop());
+console.log(stack.toArray());
+console.log(stack.size());
+stack.clear(); 
+console.log(stack.isEmpty());
+
+Output:-
+ 
+
+6 Demonstration of Linear Queue.
+class Queue {
+    constructor()
+    {
+    this.items =[];
+     }
+    
+     enqueue(element) {
+     return this.items.push(element);
+     }
+    
+     dequeue() {
+    if(this.items.length > 0) {
+    return this.items.shift();
+     }
+     }
+    
+     peek() {
+     return this.items[this.items.length - 1];
+     }
+     isEmpty(){
+     return this.items.length == 0;
+     }
+    size(){
+     return this.items.length;
+     } 
+    clear(){ 
+    this.items = []; 
+    var str="Queue is Cleared";
+     return str;
+    }
+    } 
+    let queue = new Queue();
+    queue.enqueue(10);
+    queue.enqueue(11);
+    queue.enqueue(12);
+    queue.enqueue(13);
+    console.log(queue.items);
+    queue.dequeue();
+    console.log(queue.items);
+    console.log(queue.peek());
+    console.log(queue.isEmpty());
+    console.log(queue.size());
+    var c=queue.clear();
+    console.log(c);
+
+Output:-
+ 
+
+7) Demonstration of Circular Queue
+
+class CircularQueue {
+    constructor(size) {
+    this.element = [];
+    this.size = size
+    this.length = 0
+    this.front = 0 
+    this.back = -1
+    } 
+    print() {
+    console.log(this.element);
+    }
+     isEmpty() {
+     return (this.length == 0)
+    }
+    enqueue(element) {
+    if (this.length >= this.size) throw (new Error("Maximum length exceeded"))
+    this.back++
+    this.element[this.back % this.size] = element
+    this.length++
+    }
+    dequeue() {
+     if (this.isEmpty()) throw (new Error("No elements in the queue"))
+    const value = this.getFront() 
+    this.element[this.front % this.size] =null 
+    this.front++ 
+    this.length-- 
+    console.log(value);
+    } 
+    getFront()
+    {
+     if (this.isEmpty()) throw (new Error("No elements in the queue"))
+     return this.element[this.front % this.size]
+    } 
+    clear()
+    {
+    this.element = new Array()
+    this.length = 0 
+    this.back = 0 
+    this.front = -1
+    } 
+}
+    let cq=new CircularQueue(5);
+    cq.enqueue(10); 
+    cq.enqueue(45);
+    cq.enqueue(20); 
+    cq.enqueue(15);
+    cq.enqueue(25);
+    cq.print(); 
+    cq.dequeue();
+    cq.print();
+
+Output:-
+ 
+
+8).Demonstration of Priority Queue
+class QElement {
+   constructor(element, priority){
+    this.element = element;
+    this.priority = priority;
+ }
+}
+
+class PriorityQueue {
+ constructor()
+ {
+ this.items = [];
+ }
+ enqueue(element, priority)
+{
+ var qElement = new QElement(element, priority);
+ var contain = false;
+
+ for (var i = 0; i < this.items.length; i++) {
+ if (this.items[i].priority > qElement.priority) {
+
+ this.items.splice(i, 0, qElement);
+ contain = true;
+break;
+ }
+ }
+
+ if (!contain) {
+this.items.push(qElement);
+ }
+} 
+dequeue()
+{
+ if (this.isEmpty())
+return "Underflow";
+return this.items.shift();
+} 
+front() { 
+if (this.isEmpty())
+return "No elements in Queue";
+return this.items[0];
+
+} 
+rear()
+{
+ if (this.isEmpty()) 
+ return "No elements in Queue"; 
+ return this.items[this.items.length - 1];
+} 
+isEmpty()
+{
+ return this.items.length == 0;
+}
+printPQueue() { 
+    var str = ""; 
+    for(var i = 0; i < this.items.length; i++)
+str += this.items[i].element + " ";
+ return str;
+} 
+} 
+var priorityQueue = new PriorityQueue();
+console.log(priorityQueue.isEmpty());
+console.log(priorityQueue.front());
+priorityQueue.enqueue("Rakhi Sawant", 2);
+priorityQueue.enqueue("Deepak Kalal", 3);
+priorityQueue.enqueue("Kapil Sharma", 1);
+priorityQueue.enqueue("Ranu Mandal", 4);
+console.log(priorityQueue.printPQueue());
+console.log(priorityQueue.front().element);
+console.log(priorityQueue.rear().element);
+console.log(priorityQueue.dequeue().element);
+priorityQueue.enqueue("Honey Singh", 2);
+console.log(priorityQueue.printPQueue()); 
+
+Output:-
+ 
+
+9) Reverse stack using queue
+class Stack {
+    constructor(){
+    this.elements = [];
+     }
+     push(element){
+    this.elements.push(element);
+     }
+     pop(){
+     if(this.isEmpty()) 
+    return "Underflow situation";
+    else return this.elements.pop();
+     }
+     isEmpty(){
+     return this.elements.length == 0;
+     }
+     print(){
+     return this.elements;
+     }
+    } 
+    class Queue {
+    constructor(){
+    this.elements = [];
+     }
+     enqueue(element){
+     this.elements.push(element)
+     }
+    
+    dequeue() {
+    if(!this.isEmpty()) {
+    return this.elements.shift();
+     } 
+     else {
+    return 'Underflow situation';
+     }
+     }
+     isEmpty() {
+     return this.elements.length == 0; 
+     }
+    }
+
+function reverse(stack){ 
+    const queue = new Queue();
+    while(!stack.isEmpty()){
+    queue.enqueue(stack.pop()); 
+    }
+    
+    while(!queue.isEmpty()){
+    stack.push(queue.dequeue()); 
+    }
+}
+const stack = new Stack();
+stack.push('Hello'); stack.push('World');
+stack.push('!!');
+console.log('Printing stack before reversal: ', stack.print());
+reverse(stack);
+console.log('Printing stack after reversal: ', stack.print());
+
+
+Output:-
+ 
+
+10) Practical based on binary search tree implementation with its operations.
+class Node
+{
+ constructor(data)
+ { 
+    this.data =data; 
+    this.left =null; 
+    this.right =null;
+ }
+}
+class BinarySearchTree
+{
+constructor()
+ {
+ this.root = null;
+ }
+ insert(data) {
+var newNode = new Node(data);
+if(this.root === null) 
+this.root= newNode;
+ else
+ this.insertNode(this.root, newNode);
+}
+insertNode(node, newNode)
+{
+ if(newNode.data < node.data) { 
+    if(node.left ===null)
+ node.left = newNode;
+else
+ this.insertNode(node.left, newNode);
+ }
+else
+ { 
+    if(node.right ===null) 
+    node.right =newNode; 
+    else
+ this.insertNode(node.right,newNode);
+ }
+} remove(data)
+{
+ this.root = this.removeNode(this.root, data);
+} 
+removeNode(node, key){ 
+    if(node ===null) 
+    return null;
+ else if(key < node.data)
+ {
+ node.left = this.removeNode(node.left, key);
+ return node;
+ }
+ else if(key > node.data)
+ {
+ node.right = this.removeNode(node.right, key);
+ return node;
+ }
+else
+ {
+ if(node.left === null && node.right === null)
+ { 
+    node= null;
+return node;
+ }
+ if(node.left === null)
+ {
+ node = node.right;
+return node;
+ }
+ else if(node.right === null)
+ { node =
+node.left; 
+return node;
+ }
+
+ var aux = this.findMinNode(node.right);
+ node.data = aux.data;
+
+ node.right = this.removeNode(node.right, aux.data);
+ return node;
+ }
+
+} inorder(node)
+{
+ if(node !== null)
+
+ { 
+    this.inorder(node.left);
+console.log(node.data);
+this.inorder(node.right);
+ }
+} 
+preorder(node) {
+if(node !== null)
+ {
+ console.log(node.data);
+this.preorder(node.left);
+ this.preorder(node.right);
+ }
+} 
+postorder(node)
+{ 
+    if(node !==null)
+ {
+this.postorder(node.left);
+this.postorder(node.right);
+console.log(node.data);
+ }
+}
+findMinNode(node)
+{ 
+    if(node.left ===null) 
+    return node;
+ else
+ return this.findMinNode(node.left);
+} 
+getRootNode(){ 
+    return this.root;
+} 
+search(node,data) { 
+    if(node=== null)
+return null; 
+else 
+if(data < node.data)
+return this.search(node.left, data);
+
+else 
+if(data > node.data)
+ return this.search(node.right, data);
+ else
+return node;
+}
+}
+
+var BST = new BinarySearchTree();
+BST.insert(10);
+BST.insert(95);
+BST.insert(30);
+BST.insert(70);
+BST.insert(2);
+BST.insert(34);
+BST.insert(7);
+BST.insert(45);
+BST.insert(11);
+BST.insert(56);
+var root = BST.getRootNode();
+BST.inorder(root);
+BST.remove(5);
+
+var root = BST.getRootNode();
+BST.inorder(root);
+
+BST.remove(7);
+
+var root = BST.getRootNode();
+BST.inorder(root);
+BST.remove(34);
+
+var root = BST.getRootNode();
+console.log("inordertraversal"); 
+BST.inorder(root); 
+console.log("postorder traversal"); 
+BST.postorder(root);
+console.log("preordertraversal"); 
+BST.preorder(root);  
+
+Output:-
+2 7 10 11 30 34 45 56 70 95 
+2 7 10 11 30 34 45 56 70 95
+ 2 10 11 30 34 45 56 70 95 
+ 
+
+
+11. Graph implementation and graph traversals.
+
+class Graph {
+    constructor() {
+        this.AdjList = new Map();
+        console.log('Di-graph');
+     }
+     addVertex(vertex) { 
+         if(!this.AdjList.has(vertex)) {
+         this.AdjList.set(vertex, []);
+     } else { 
+        throw 'AlreadyExist!!!'; 
+    }
+     }
+    addEdge(vertex, node) { 
+        if(this.AdjList.has(vertex)) {
+             if(this.AdjList.has(node)){ 
+                 let arr = this.AdjList.get(vertex);
+    if(!arr.includes(node)){
+    arr.push(node); 
+}else{
+     throw `Can't add '${node}', it already exists`;
+     }
+     }
+     else 
+     {
+     throw `Can't add non-existing vertex ->'${node}'`;
+     }
+     } 
+     else {
+     throw `You should add '${vertex}' first`;
+     }
+     }
+     print() {
+     console.log(this.AdjList);
+     
+    for (let [key, value] of this.AdjList) {
+    console.log(key, value);
+     
+     }
+     }
+     createVisitedObject(){
+    let arr = {};
+     for(let key of this.AdjList.keys()){
+     arr[key] = false; 
+    }
+    return arr;
+    }
+    bfs(startingNode){
+   console.log('\nBFS') 
+   let visited = this.createVisitedObject();
+    let q = [];
+   visited[startingNode] = true;
+    q.push(startingNode);
+    while(q.length){
+   let current = q.pop()
+    console.log(current);
+    let arr = this.AdjList.get(current);
+    for(let elem of arr){
+   if(!visited[elem]){
+   visited[elem] = true;
+   q.unshift(elem)
+    }
+    }
+   
+   }
+    }
+    dfs(startingNode){
+   console.log('\nDFS')
+   let visited = this.createVisitedObject();
+    this.dfsHelper(startingNode, visited);
+    }
+    dfsHelper(startingNode, visited){
+   visited[startingNode] = true;
+   console.log(startingNode);
+   
+    let arr = this.AdjList.get(startingNode); 
+    for(let elem of arr){
+        if(!visited[elem]){
+         this.dfsHelper(elem, visited);
+         }
+         }
+     }
+        
+         doesPathExist(firstNode, secondNode){
+         let path = []; 
+         let visited = this.createVisitedObject(); 
+        let q = [];
+        visited[firstNode] = true;
+        q.push(firstNode); 
+         while(q.length){
+        let node = q.pop(); 
+        path.push(node);
+        let elements = this.AdjList.get(node);
+        if(elements.includes(secondNode)){
+        console.log(path.join('->'))
+         return true; 
+        }
+         else{
+        for(let elem of elements){
+        if(!visited[elem]){
+        visited[elem] = true;
+        q.unshift(elem);
+         }
+         }
+         } 
+        }
+        return false;
+         } 
+        } 
+         function test (arg1,arg2){ 
+            if(arg1 === arg2){
+         console.log(`${arg1} = ${arg2} \t-> passing`)
+                 }
+         else{ 
+            throw 'Not passing';
+         } 
+        } 
+let g = new Graph();
+let arr = ['A', 'B', 'C', 'D', 'E', 'F']; 
+for(let i = 0; i < arr.length; i++) {
+g.addVertex(arr[i]);
+}
+g.addEdge('A', 'C');
+g.addEdge('A', 'B');
+g.addEdge('B', 'E');
+g.addEdge('B', 'A');
+g.addEdge('D', 'E');
+g.addEdge('E', 'F');
+g.addEdge('E', 'C');
+g.addEdge('C', 'F');
+g.print();
+g.bfs('A');
+g.dfs('A');
+
+Output:-
+ 
+Q12. Implementation of Hashing.
+
+class HashTable {
+    constructor() {
+    this.values = {};
+    this.length = 0;
+    this.size = 0;
+     }
+    calculateHash(key) {
+     return key.toString().length % this.size;
+     }
+    add(key, value) { 
+        const hash = this.calculateHash(key);
+     if(!this.values.hasOwnProperty(hash))
+     {
+     this.values[hash] = {};
+     }
+     if (!this.values[hash].hasOwnProperty(key)) {
+    this.length++;
+    }
+    this.values[hash][key] = value;
+     }
+    search(key) {
+     const hash = this.calculateHash(key);
+     if (this.values.hasOwnProperty(hash) && this.values[hash].hasOwnProperty(key)) {
+    console.log(key+" received :") 
+    return this.values[hash][key];
+     } 
+     else {
+    return null;
+     }}}
+const ht = new HashTable();
+ht.add("Rakhi Sawant", "300");
+ht.add("Deepak kalal", "100"); 
+console.log(ht.search("Rakhi Sawant "));
+
+
+
+
+Output:-
+ 
+
+13) Implementation of Brute Force technique Linear Search.
+
+function linearSearch(arr, key){
+var b=false;
+    for(let i = 0; i < arr.length; i++){
+if(arr[i] === key){
+    console.log(key+" found at: ")
+console.log((i+1)+" position"); 
+b=true;}
+    }
+if(b==false){
+    console.log("Key Not Found");}
+}
+arr=[7,12,9,5,10] 
+key=5
+linearSearch(arr,key)
+
+
+Output:-
+ 
+
+
+14) Implementation of Greedy Algorithm-Prim’s.
+
+const createAdjMatrix=(V, G)=> { 
+    var adjMatrix = [];
+     for (var i = 0; i < V; i++) {
+    adjMatrix.push([]);
+     for (var j = 0; j < V; j++) { adjMatrix[i].push(0); }
+     }
+     for (var i = 0; i < G.length; i++) {
+    adjMatrix[G[i][0]][G[i][1]] = G[i][2];
+    adjMatrix[G[i][1]][G[i][0]] = G[i][2];
+     }
+     return adjMatrix;
+    }
+    function prims(V, G) {
+     var adjMatrix = createAdjMatrix(V, G);
+     var vertex = 0;
+    var MST = []; var
+    edges = []; var
+    visited = [];
+     var minEdge = [null,null,Infinity];
+    
+     while (MST.length !== V-1) {
+    
+     visited.push(vertex);
+    
+     for (var r = 0; r < V; r++) { 
+         if(adjMatrix[vertex][r] !== 0) {
+     edges.push([vertex,r,adjMatrix[vertex][r]]);
+     }
+     }
+     for (var e = 0; e < edges.length; e++) {
+     if (edges[e][2] < minEdge[2] && visited.indexOf(edges[e][1]) === -1) {
+    minEdge = edges[e];
+     }
+     }
+     edges.splice(edges.indexOf(minEdge), 1);
+    MST.push(minEdge+" ") 
+    vertex = minEdge[1]; 
+    minEdge = [null,null,Infinity];
+     }
+    console.log(MST);
+     }
+   
+var a = 0, b = 1, c = 2, d = 3, e = 4, f = 5;
+var graph = [
+    [a,b,2],
+    [a,c,3],
+    [b,d,3],
+    [b,c,5],
+    [b,e,4],
+    [c,e,4],
+    [d,e,2],
+    [d,f,3],
+    [e,f,5]
+];
+prims(6, graph);
+
+Output:-
+
+ 
+
+
+15) Implementation of Greedy Kruskal’s algorithm.
+
+var kruskal = function(points) {
+const n = points.length;
+const dist = [];
+ const graph = [...Array(n)].map((_, i) => i);
+ let totalDist = 0;
+
+ for(let i = 0; i < n; i++) {
+for(let j = i+1; j < n; j++) {
+const [x1, y1] = points[i];
+const [x2, y2] = points[j];
+ const distance = Math.abs(x1 - x2) + Math.abs(y1 - y2);
+ dist.push([distance, i, j]);
+ }
+ }
+
+ dist.sort((a, b) => a[0] - b[0]);
+
+ function find(id) {
+if(graph[id] === id) 
+return id;
+graph[id] = find(graph[id]);
+return graph[id];
+ }
+
+for(let [d, u, v] of dist) {
+const rootU = find(u); 
+const rootV = find(v); 
+if(rootU ===rootV) 
+continue;
+graph[rootV] = rootU
+totalDist += d;
+}
+console.log("Minimum Cost is: ")
+console.log(totalDist)
+};
+var points = [[6,5],[12,5],[3,-3]] 
+kruskal(points)
+
+Output:-
+ 
+
+
+    </p>
+</body>
+</html>
